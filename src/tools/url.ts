@@ -15,6 +15,14 @@ export function option(key: string, defaultValue: Maybe<string> = null) {
   return defaultValue;
 }
 
+option.json = (key: string, defaultValue: any) => {
+  const param = option(key);
+  if (typeof param === "string" && /^{/i.test(param)) {
+    return JSON.parse(param);
+  }
+  return defaultValue;
+}
+
 option.bool = (key: string, defaultValue = false) => {
   const param = option(key);
   return param ? /^true$/i.test(param) : defaultValue;
@@ -33,7 +41,7 @@ option.bool = (key: string, defaultValue = false) => {
 option.smart = (key: string, defaultValue : any) => {
   if (typeof defaultValue === "boolean") return option.bool(key, defaultValue);
   if (typeof defaultValue === "number") return option.number(key, defaultValue);
-  return option(key, defaultValue);
+  return option.json(key, option(key, defaultValue));
 }
 
 option.set = (key: string, value: any) => {
