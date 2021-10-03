@@ -19,7 +19,9 @@ export class Sketch extends P5 {
   }
 
   draw() {
+    this.gui.stats.begin();
     this.background('black');
+    this.gui.stats.end();
   }
 
   keyPressed() {
