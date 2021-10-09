@@ -59,7 +59,7 @@ export class Palette {
    * @memberof Palette
    */
   get colorList() {
-    return Object.values(this.colors).map(color);
+    return Object.values(this.colors).map((c) => this.p5.color(c));
   }
 
   /**
