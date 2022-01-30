@@ -1,6 +1,5 @@
-import P5, { Color } from "p5";
-import Sketch from "../sketch";
 import { urlConfig } from "./utils";
+import { Color } from "p5";
 
 const ALL = [
   ["5a5353","a07178","e6ccbe","776274","c8cc92"],
@@ -34,7 +33,6 @@ const ALL = [
 ];
 
 export class Palette {
-  p5: P5
   colors: {
     color1: string
     color2: string
@@ -43,10 +41,9 @@ export class Palette {
     color5: string
   }
 
-  constructor(p5: Sketch) {
-    this.p5 = p5;
+  constructor() {
     this.colors = urlConfig(
-      p5.random(ALL).reduce((out, c, idx) => (
+      random(ALL).reduce((out, c, idx) => (
         { ...out, [`color${idx + 1}`]: `#${c}`.toUpperCase() }
       ), {})
     );
@@ -59,7 +56,7 @@ export class Palette {
    * @memberof Palette
    */
   get colorList() {
-    return Object.values(this.colors).map((c) => this.p5.color(c));
+    return Object.values(this.colors).map((c) => color(c));
   }
 
   /**
@@ -68,9 +65,9 @@ export class Palette {
    * @returns {Color}
    * @memberof Palette
    */
-  getRandomColor() : Color {
-    const { p5, colorList } = this;
-    return p5.color(p5.random(colorList));
+  getRandomColor() {
+    const { colorList } = this;
+    return color(random(colorList));
   }
 
   /**
@@ -83,9 +80,9 @@ export class Palette {
    */
   equalColors(cl1 : Color | string, cl2 : Color | string) {
     return (
-      this.p5.red(cl1) === this.p5.red(cl2) &&
-      this.p5.green(cl1) === this.p5.green(cl2) &&
-      this.p5.blue(cl1) === this.p5.blue(cl2)
+      red(cl1) === red(cl2) &&
+      green(cl1) === green(cl2) &&
+      blue(cl1) === blue(cl2)
     )
   }
 
@@ -105,5 +102,5 @@ export class Palette {
   }
 }
 
-export default Palette;
+export default new Palette();
 

@@ -1,5 +1,6 @@
 export default {
-  exclude:['./vendor'],
+  // exclude:['./vendor'],
+  publicDir: "./assets",
   server: {
     port: 3080
   }

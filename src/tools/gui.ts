@@ -1,6 +1,7 @@
 import { config } from "./config";
-import Sketch from "../sketch";
 import * as dat from 'dat.gui';
+import palette from "./palette";
+import Sketch from "../sketch";
 import Stats from "stats-js";
 
 // ------------------------------------
@@ -10,7 +11,7 @@ import Stats from "stats-js";
 export class GUI extends dat.GUI {
   stats: any
 
-  constructor(sketch: Sketch) {
+  constructor() {
     super();
 
     // Add FPS Meter
@@ -24,14 +25,14 @@ export class GUI extends dat.GUI {
 
     const paletteFolder = this.addFolder('Palette');
 
-    paletteFolder.addColor(sketch.palette.colors, 'color1');
-    paletteFolder.addColor(sketch.palette.colors, 'color2');
-    paletteFolder.addColor(sketch.palette.colors, 'color3');
-    paletteFolder.addColor(sketch.palette.colors, 'color4');
-    paletteFolder.addColor(sketch.palette.colors, 'color5');
+    paletteFolder.addColor(palette.colors, 'color1');
+    paletteFolder.addColor(palette.colors, 'color2');
+    paletteFolder.addColor(palette.colors, 'color3');
+    paletteFolder.addColor(palette.colors, 'color4');
+    paletteFolder.addColor(palette.colors, 'color5');
 
     const buttons = {
-      "save": () => sketch.save(`out_${Date.now()}.png`),
+      "save": () => save(`out_${Date.now()}.png`),
       "reload": () => window.location.reload(),
       "reset": () => {
         const path = window.location.protocol + "//" + window.location.host + window.location.pathname + '?gui=true';
